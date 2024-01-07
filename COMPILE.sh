@@ -100,7 +100,7 @@ compile() {
 
             # recompiling if necessary
             if [[ $recompile == 1 ]]; then
-                ./makeobj pak$1 ./compiled/ "./$dat" &> /dev/null
+                ./makeobj-extended pak$1 ./compiled/ "./$dat" &> /dev/null
                 if [[ $? != 0 ]]; then
                     echo "Error: Makeobj returned an error for $dat. Aborting..."
                     rm "$csv.in"

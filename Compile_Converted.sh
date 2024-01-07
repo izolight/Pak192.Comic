@@ -33,7 +33,7 @@ progressbar() {
 # @param $* list of files to compile
 compile() {
     echo '------------------------------------------------------'
-    echo -e "Compiling $2...\n"
+    echo -e "Compiling $2...\n" | tee -a compile.log
 
     local index=1
     local size=($3)
@@ -42,9 +42,9 @@ compile() {
     for dat in $3; do
 
         if [ -f "$dat" ] ; then
-            echo -e "Compiling $dat"
+            echo -e "Compiling $dat" | tee -a compile.log
 
-            ./makeobj-extended pak$1 ./compiled_converted/ "./$dat" &> /dev/null
+            ./makeobj-extended pak$1 ./compiled_converted/ "./$dat" | tee -a compile.log
                 if [[ $? != 0 ]]; then
                     echo "Error: Makeobj returned an error for $dat. Aborting..."
                 fi
@@ -153,6 +153,7 @@ if [ ! -f $csv ]; then
 fi
 echo '# This file allows the compile script to only recompile changed files' > "$csv.in"
 
+rm -f compile.log
 compile '192' 'Landscape' 'calculated/pakset/landscape/ground/*.dat'
 compile '192' 'Landscape' 'calculated/pakset/landscape/ground_objects/*.dat'
 compile '192' 'Landscape' 'calculated/pakset/landscape/tree/*.dat'
@@ -172,7 +173,7 @@ compile '48' 'Smaller Objects' 'calculated/pakset/48/**/**/*.dat'
 mv "$csv.in" "$csv"
 
 echo -e '------------------------------------------------------'
-echo -e 'Moving Trunk (configs, sound, text)\n\n'
+echo -e 'Moving Trunk configs, sound, text\n\n'
 
 cp -r calculated/pakset/trunk/* compiled_converted
 

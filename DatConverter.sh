@@ -219,13 +219,6 @@ getspeedbonus() {
 }
 
 
-
-
-
-
-
-
-
 getincome() {
 	#returns the income multiplied by 1.000
 	local Good=$1
@@ -269,6 +262,76 @@ getincome() {
 
 
 
+
+readallfiles() {
+	local directionary=$1
+	IFS='
+	'
+	if [ ${#directionary[@]} -gt 0 ] ; then
+
+		for dat in $directionary ; do
+
+			if [ -f "$dat" ] ; then
+				echo "-- Performing Work At: $dat "
+				readfile $dat
+			fi
+		done
+	fi
+}
+
+
+readfile() {
+	#opens a file
+	#creates a new ObjectArray
+	#runs readline for each line in the file
+	local Filename=$1
+	local File=`cat $Filename | tr -d '\r'`
+
+	`rm -f calculated/$Filename`
+	declare -A ObjectArray
+	local IFS='
+'
+	for Line in $File; do
+  	PosMin=`expr index "$Line" '-'`
+		if [ $PosMin -eq 1 ]
+		then
+			writeobject $Filename
+			unset ObjectArray
+			declare -A ObjectArray
+		else 
+			readline $Line
+		fi
+	done
+	if [[ ! -z ${ObjectArray[obj]} ]] ;then
+		writeobject $Filename
+	fi
+	unset ObjectArray
+}
+
+
+readline() {
+	#reads a line and adds it to the ObjectArray
+	local Line="$1"
+	if [[ ! -z $Line ]];then
+		shift
+		local PosHash=`expr index "$Line" '#'`
+		local PosEq=`expr index "$Line" '='`
+
+		if [ $PosHash -gt 0 ]
+		then
+			Line=${Line:0:$((PosHash - 1))}
+		fi
+		if [ $PosEq -gt 0 -a ${#Line} -gt 0 ]
+		then
+			Name=${Line:0:$((PosEq - 1))}
+			Name="$(trim $Name)"
+			Name=${Name,,}
+			Value=${Line:PosEq}
+			Value="$(trim $Value)"
+			ObjectArray[$Name]=$Value
+		fi
+	fi
+}
 
 calculatepayload(){
 	local dat=$1
@@ -430,7 +493,12 @@ calculatecosts(){
 	local PowerValue=0
 	if [[ ! -z ${ObjectArray[power]} ]] ;then
 		local EffectivePower=${ObjectArray[power]}
-		EffectivePower=$(( EffectivePower * 100 ))
+		if [[ ! -z ${ObjectArray[gear]} ]] ;then
+			local Gear=${ObjectArray[gear]}
+			EffectivePower=$(( EffectivePower * Gear ))
+		else
+			EffectivePower=$(( EffectivePower * 100 ))
+		fi
 		PowerValue="$(getincome "None" $EffectivePower ${ObjectArray[waytype]} ${ObjectArray[intro_year]} $payingspeed)"
 		
 		if [[ ! -z ${ObjectArray[engine_type]} ]] ;then
@@ -904,69 +972,6 @@ writeobject() {
 
 
 
-readallfiles() {
-	local directionary=$1
-	IFS='
-	'
-  for dat in $directionary ; do
-		echo "-- Performing Work At: $dat "
-		readfile $dat
-	done
-}
-
-
-readfile() {
-	#opens a file
-	#creates a new ObjectArray
-	#runs readline for each line in the file
-	local Filename=$1
-	local File=`cat $Filename | tr -d '\r'`
-
-	`rm -f calculated/$Filename`
-	declare -A ObjectArray
-	local IFS='
-'
-	for Line in $File; do
-  	PosMin=`expr index "$Line" '-'`
-		if [ $PosMin -eq 1 ]
-		then
-			writeobject $Filename
-			unset ObjectArray
-			declare -A ObjectArray
-		else 
-			readline $Line
-		fi
-	done
-	if [[ ! -z ${ObjectArray[obj]} ]] ;then
-		writeobject $Filename
-	fi
-	unset ObjectArray
-}
-
-
-readline() {
-	#reads a line and adds it to the ObjectArray
-	local Line="$1"
-	if [[ ! -z $Line ]];then
-		shift
-		local PosHash=`expr index "$Line" '#'`
-		local PosEq=`expr index "$Line" '='`
-
-		if [ $PosHash -gt 0 ]
-		then
-			Line=${Line:0:$((PosHash - 1))}
-		fi
-		if [ $PosEq -gt 0 -a ${#Line} -gt 0 ]
-		then
-			Name=${Line:0:$((PosEq - 1))}
-			Name="$(trim $Name)"
-			Name=${Name,,}
-			Value=${Line:PosEq}
-			Value="$(trim $Value)"
-			ObjectArray[$Name]=$Value
-		fi
-	fi
-}
 
 
 
