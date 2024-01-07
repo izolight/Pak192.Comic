@@ -3,6 +3,9 @@ name=Passenger_Train_2007_City_Night_Line_WRmz131
 #WRmz 131
 copyright=Flemmbrav
 intro_year=2007
+build_year=1984
+latest_reconstruction=2007
+#build and reco are guessed!!!
 intro_month=12
 retire_year=2016
 retire_month=12
@@ -27,6 +30,7 @@ name=SWG_Sitzwagen_1996
 #Bpm 875.1
 copyright=RABe514
 intro_year=2007
+build_year=1996
 intro_month=12
 retire_year=2016
 retire_month=12
@@ -76,6 +80,7 @@ name=AWH_Halbgepaeckwagen_2003
 #BDcm 874.1
 copyright=RABe514 & Citarofahrer
 intro_year=2007
+build_year=2003
 intro_month=12
 retire_year=2016
 retire_month=12
@@ -99,6 +104,7 @@ name=Talbot_Doppelstockschlafwagen_1996_CNL
 #WLABm 171
 copyright=RABe514 & Citarofahrer
 intro_year=2007
+build_year=1996
 intro_month=12
 retire_year=2016
 retire_month=12
@@ -123,6 +129,7 @@ name=WU_Speisewagen_1996
 #WRkmz 858.0
 copyright=RABe514 & Citarofahrer
 intro_year=2007
+build_year=1996
 intro_month=12
 retire_year=2016
 retire_month=12
@@ -147,6 +154,8 @@ name=Eurofirma_Wagen_CNL_2013
 #Bvcmz 248
 copyright=Flemmbrav
 intro_year=2007
+build_year=1963
+latest_reconstruction=1996
 intro_month=12
 retire_year=2016
 retire_month=12

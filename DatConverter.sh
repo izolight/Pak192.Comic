@@ -39,6 +39,8 @@
 		FreeSpace=0
 
 
+#set -e
+
 #general functions that don't have a single purpose
 
 trim() {
@@ -99,7 +101,7 @@ readgoodline() {
 	local Line="$1"
 	shift
 	local PosHash=`expr index "$Line" '#'`
-  	local PosEq=`expr index "$Line" '='`
+	local PosEq=`expr index "$Line" '='`
 
 	if [ $PosHash -gt 0 ]
 	then
@@ -236,13 +238,23 @@ getincome() {
 	local GoodValue=${GoodsValueArray[$Good]}
 	local Income=0
 	GoodSpeedBonus=$(( GoodSpeedBonus + 2 ))
-	#echo "Speed: $Speed ; GoodSpeedBonus: $GoodSpeedBonus ; SpeedBonus: $SpeedBonus"
+	#echo "Speed: "$Speed" ; GoodSpeedBonus: "$GoodSpeedBonus" ; SpeedBonus: "$SpeedBonus;
 	#calculate the speedbonus multiplied by 10.000
-	Income=10000
+	if [ $SpeedBonus -eq 0 ];then
+		Income=10000
+	else
+		Income=$(( (( Speed * 1000 / SpeedBonus ) - 1000 ) * ( GoodSpeedBonus ) + 10000 ))
+		#(( 13/3 Speed <= SpeedBonus )
+	fi
 	#calculate the income
 	Income=$(( Income * Payload * GoodValue / 3 ))
 	#lowering the multiplyer to times 10
 	Income=$(( Income / 10 ))
+
+	if [ 0 -gt $Income ];then
+		Income=0
+	fi
+	
 	echo $Income
 }
 
@@ -433,7 +445,7 @@ calculatecosts(){
 
 	#malus for passenger trains as they usually get higher average payload
 	if [[ ${ObjectArray[freight]} == "Passagiere" ]] ;then
-		Income=$(( Income / 100 * 110 ))
+		Income=$(( Income * 100 / 110 ))
 	fi
 
 	#echo $Income
@@ -461,6 +473,9 @@ calculatecosts(){
 	#local FixCost=$(( RunningCost * 240 ))
 	#speed=$(( speed - 10 ))
 	local FixCost=$(( RunningCost * speed * 1000 / 700 ))
+	if [[ ${ObjectArray[waytype]} == "water" ]] ;then
+		FixCost=$(( FixCost * 400 / 100 ))
+	fi
 	RunningCost=$(( RunningCost / 10 ))
 	if [[ $ForcingNewValues == 1 || $ForcingNewPrices == 1 ]];then
 		echo "max_loading_time=$LoadingTime" >> calculated/$dat
@@ -634,6 +649,7 @@ writebuilding() {
 
 writevehicle() {
 	local dat=$1
+	echo "calculated/$dat"
 	
 #Object
 	#the object being a vehicle is given by running this function
@@ -999,11 +1015,11 @@ Commands:
 		fi
 		if [[ $arg == "-a" ]];then
 			ReadAll=1
-			echo "- -a Convertig All Files"
+			echo "- -a Converting All Files"
 		fi
 		if [[ $arg == "-v" ]];then
 			AllVehicles=1
-			echo "- -v Convertig All Vehicles"
+			echo "- -v Converting All Vehicles"
 		fi
 		if [[ $arg == "-h" ]];then
 			Help=1
@@ -1024,10 +1040,14 @@ Commands:
 		mkdir -p calculated/pakset
 		#mkdir -p calculatedextended/AddOn
 		mkdir -p calculated/AddOn
+		#mkdir -p calculatedextended/AddOn
+		mkdir -p calculated/AddOn384
 		#`cp -rf pakset/* calculatedextended/pakset`
 		`cp -rf pakset/* calculated/pakset`
 		#`cp -rf AddOn/* calculatedextended/AddOn`
 		`cp -rf AddOn/* calculated/AddOn`
+		#`cp -rf AddOn/* calculatedextended/AddOn`
+		`cp -rf AddOn384/* calculated/AddOn384`
 
 		declare -A ReConvertList
 		declare -A GoodsValueArray
@@ -1049,6 +1069,11 @@ Commands:
 			readallfiles 'AddOn/**/**/*.dat'
 			readallfiles 'AddOn/**/**/**/*.dat'
 			readallfiles 'AddOn/**/**/**/**/*.dat'
+			readallfiles 'AddOn384/*.dat'
+			readallfiles 'AddOn384/**/*.dat'
+			readallfiles 'AddOn384/**/**/*.dat'
+			readallfiles 'AddOn384/**/**/**/*.dat'
+			readallfiles 'AddOn384/**/**/**/**/*.dat'
 		else
 			if [[ $AllVehicles == 1 ]] ;then
 				echo "- Edit All Vehicle .dat Files "
@@ -1056,7 +1081,7 @@ Commands:
 				readallfiles 'pakset/vehicles/**/*.dat'
 				readallfiles 'AddOn/**/vehicles/**/*.dat'
 			else	
-				echo "- Edit Costoum .dat Files "
+				#echo "- Edit Costoum .dat Files "
 
 				readfile "pakset/buildings/city/ind_1tropic_1x2.dat"
 				#readfile "pakset/vehicles/track/Tram_DUEWAG_Grossraumwagen.dat"

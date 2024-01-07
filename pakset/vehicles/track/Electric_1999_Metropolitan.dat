@@ -13,8 +13,8 @@ RunningCost=616
 length=12
 intro_year=1999
 intro_month=8
-retire_year=2008
-retire_month=8
+retire_year=2004
+retire_month=12
 loading_time=6160
 
 Constraint[Prev][0]=Metropolitan_Wagen
@@ -49,8 +49,8 @@ RunningCost=616
 length=12
 intro_year=1999
 intro_month=8
-retire_year=2008
-retire_month=8
+retire_year=2004
+retire_month=12
 loading_time=6160
 
 Constraint[Prev][0]=BR_101
@@ -83,8 +83,8 @@ RunningCost=616
 length=12
 intro_year=1999
 intro_month=8
-retire_year=2008
-retire_month=8
+retire_year=2004
+retire_month=12
 loading_time=6160
 
 Constraint[Prev][0]=Metropolitan_Wagen
@@ -117,8 +117,8 @@ RunningCost=486
 length=12
 intro_year=1999
 intro_month=8
-retire_year=2008
-retire_month=8
+retire_year=2004
+retire_month=12
 loading_time=4860
 
 Constraint[Prev][0]=none
@@ -151,8 +151,8 @@ RunningCost=486
 length=12
 intro_year=1999
 intro_month=8
-retire_year=2008
-retire_month=8
+retire_year=2004
+retire_month=12
 loading_time=4860
 
 Constraint[Prev][0]=Metropolitan_Wagen
@@ -165,7 +165,51 @@ has_rear_cab=1
 bidirectional=1
 catering_level=1
 
-liverytype[0]=MET
-liverytype[1]=DB_Fernverkehr
-EmptyImage[E,S,W,N,SE,NE,NW,SW][0]=image/Metropolitan.4.<$0>
-EmptyImage[E,S,W,N,SE,NE,NW,SW][1]=DB_Fernverkehr/Metropolitan.4.<$0>
+EmptyImage[E]=image/Metropolitan.4.0
+EmptyImage[S]=image/Metropolitan.4.1
+EmptyImage[W]=image/Metropolitan.4.2
+EmptyImage[N]=image/Metropolitan.4.3
+EmptyImage[SE]=image/Metropolitan.4.4
+EmptyImage[NE]=image/Metropolitan.4.5
+EmptyImage[NW]=image/Metropolitan.4.6
+EmptyImage[SW]=image/Metropolitan.4.7
+----------------
+obj=vehicle
+name=Metropolitan_Lokomotive
+copyright=Flemmbrav
+waytype=narrowgauge_track
+engine_type=electric
+freight=Passagiere
+payload=0
+weight=84
+speed=220
+power=6400
+# gear=175
+# cost=273719040
+# RunningCost=8827
+
+gear=195
+cost=305001216
+runningcost=9836
+
+length=10
+intro_year=1999
+intro_month=8
+retire_year=2004
+retire_month=12
+
+Constraint[Prev][0]=Metropolitan_Endwagen_2
+Constraint[Prev][1]=Metropolitan_Lokomotive
+Constraint[Prev][2]=none
+Constraint[Next][0]=Metropolitan_Endwagen_1
+Constraint[Next][1]=Metropolitan_Lokomotive
+Constraint[Next][2]=none
+
+EmptyImage[E]=image/Metropolitan.5.0
+EmptyImage[S]=image/Metropolitan.5.1
+EmptyImage[W]=image/Metropolitan.5.2
+EmptyImage[N]=image/Metropolitan.5.3
+EmptyImage[SE]=image/Metropolitan.5.4
+EmptyImage[NE]=image/Metropolitan.5.5
+EmptyImage[NW]=image/Metropolitan.5.6
+EmptyImage[SW]=image/Metropolitan.5.7

@@ -19,8 +19,8 @@ has_front_cab=0
 has_rear_cab=0
 bidirectional=1
 
-emptyimage[s,w,se,sw,n,e,nw,ne]=./image/Car_1900_Coil.0.<$0>
-freightimage[0][s,w,se,sw,n,e,nw,ne]=./image/Car_1900_Coil.1.<$0>
+emptyimage[n,w,se,sw,s,e,nw,ne]=./image/Car_1900_Coil.0.<$0>
+freightimage[0][n,w,se,sw,s,e,nw,ne]=./image/Car_1900_Coil.1.<$0>
 freightimagetype[0]=sheetmetal
 -----
 obj=vehicle

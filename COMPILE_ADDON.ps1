@@ -111,11 +111,21 @@ if (!(Test-Path "$csv")) {
 echo '# This file allows the compile script to only recompile changed files' > "$csv.in"
 
 
-compile '192' 'AddOns 1/5' 'calculated/AddOn/*.dat'
-compile '192' 'AddOns 2/5' 'calculated/AddOn/**/*.dat'
-compile '192' 'AddOns 3/5' 'calculated/AddOn/**/**/*.dat'
-compile '192' 'AddOns 4/5' 'calculated/AddOn/**/**/**/*.dat'
-compile '192' 'AddOns 5/5' 'calculated/AddOn/**/**/**/**/*.dat'
+compile '192' 'AddOns 1/15' 'AddOn/*.dat'
+compile '192' 'AddOns 2/15' 'AddOn/**/*.dat'
+compile '192' 'AddOns 3/15' 'AddOn/**/**/*.dat'
+compile '192' 'AddOns 4/15' 'AddOn/**/**/**/*.dat'
+compile '192' 'AddOns 5/15' 'AddOn/**/**/**/**/*.dat'
+compile '384' 'AddOns 6/15' 'AddOn384/*.dat'
+compile '384' 'AddOns 7/15' 'AddOn384/**/*.dat'
+compile '384' 'AddOns 8/15' 'AddOn384/**/**/*.dat'
+compile '384' 'AddOns 9/15' 'AddOn384/**/**/**/*.dat'
+compile '384' 'AddOns 10/15' 'AddOn384/**/**/**/**/*.dat'
+compile '48' 'AddOns 11/15' 'AddOn48/*.dat'
+compile '48' 'AddOns 12/15' 'AddOn48/**/*.dat'
+compile '48' 'AddOns 13/15' 'AddOn48/**/**/*.dat'
+compile '48' 'AddOns 14/15' 'AddOn48/**/**/**/*.dat'
+compile '48' 'AddOns 15/15' 'AddOn48/**/**/**/**/*.dat'
 
 
 # remove the old csv

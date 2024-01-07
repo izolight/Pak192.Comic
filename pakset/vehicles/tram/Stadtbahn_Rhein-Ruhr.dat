@@ -246,6 +246,7 @@ length=7
 waytype=tram_track
 engine_type=electric
 loading_time=960
+sound=ET2010.wav
 
 Constraint[Prev][0]=K5000_2-VRR
 Constraint[Prev][1]=none
@@ -284,6 +285,7 @@ length=11
 waytype=tram_track
 engine_type=electric
 loading_time=960
+sound=ET2010.wav
 
 Constraint[Prev][0]=K5000_1-VRR
 Constraint[Next][0]=K5000_1-VRR
@@ -324,6 +326,7 @@ length=6
 waytype=tram_track
 engine_type=electric
 loading_time=730
+sound=ET2010.wav
 
 Constraint[Prev][0]=K4500_3-VRR
 Constraint[Prev][1]=none
@@ -362,6 +365,7 @@ length=2
 waytype=tram_track
 engine_type=electric
 loading_time=270
+sound=ET2010.wav
 
 Constraint[Prev][0]=K4500_1-VRR
 Constraint[Next][0]=K4500_3-VRR
@@ -399,6 +403,7 @@ length=11
 waytype=tram_track
 engine_type=electric
 loading_time=730
+sound=ET2010.wav
 
 Constraint[Prev][0]=K4500_2-VRR
 Constraint[Next][0]=K4500_1-VRR
@@ -439,6 +444,7 @@ length=6
 waytype=tram_track
 engine_type=electric
 loading_time=1210
+sound=ET2010.wav
 
 Constraint[Prev][0]=K4000_3-VRR
 Constraint[Prev][1]=none
@@ -477,6 +483,7 @@ length=1
 waytype=tram_track
 engine_type=electric
 loading_time=150
+sound=ET2010.wav
 
 Constraint[Prev][0]=K4000_1-VRR
 Constraint[Next][0]=K4000_3-VRR
@@ -514,6 +521,7 @@ length=11
 waytype=tram_track
 engine_type=electric
 loading_time=1210
+sound=ET2010.wav
 
 Constraint[Prev][0]=K4000_2-VRR
 Constraint[Next][0]=K4000_1-VRR

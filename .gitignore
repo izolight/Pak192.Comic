@@ -8,6 +8,7 @@ compiled/
 # Windows
 [dD]esktop.ini
 /makeobj.exe
+/compiled_converted/
 /compiled_serverset/
 /compiled_addons/
 /calculatedextended/

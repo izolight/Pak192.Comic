@@ -72,7 +72,7 @@ name=cars
 catg=0
 metric=stk
 weight_per_unit=1500
-value=500
+value=2500
 speed_bonus=3
 -----------------
 obj=good
@@ -395,9 +395,17 @@ name=icecream
 catg=4
 metric=pallets
 weight_per_unit=100
-value=290
-speed_bonus=5
+value=220
+speed_bonus=8
 ------------------
+obj=good
+name=cheese
+catg=4
+metric=pallets
+weight_per_unit=100
+value=290
+speed_bonus=1
+-----------------
 # cat 5: prisoners ############################################
 -----------------
 #obj=good
@@ -567,6 +575,14 @@ catg=9
 metric=batch
 weight_per_unit=300
 value=260
+speed_bonus=3
+-----------------
+obj=good
+name=beets
+catg=9
+metric=tons
+weight_per_unit=1000
+value=200
 speed_bonus=3
 -----------------
 # cat 10: rolled_goods ############################################
