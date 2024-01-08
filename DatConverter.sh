@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -ex
 # Structure of the file:
 # - parameters for balancing
 #   - buildings
@@ -39,7 +40,6 @@
 		FreeSpace=0
 
 
-#set -e
 
 #general functions that don't have a single purpose
 
@@ -65,6 +65,11 @@ trim() {
 	echo "$String"
 }
 
+# drop in replacement for expr index $text $char
+strindex() {
+  x="${1%%"$2"*}"
+  [[ "$x" = "$1" ]] && echo 0 || echo "$((${#x}+1))"
+}
 
 #single use functions that run once the script starts
 
@@ -75,21 +80,21 @@ readgoods() {
 	#creates a new GoodArray including all the parameters of a single good
 	#runs readgoodline for each line in the file
 	#saves the good to an array when it's fully read
-	local GoodsFile=`cat pakset/buildings/factories/goods/goods.dat | tr -d '\r'`
+	local GoodsFile
+	GoodsFile=$(cat pakset/buildings/factories/goods/goods.dat | tr -d '\r')
 
-	`rm -f calculated/pakset/buildings/factories/goods/goods.dat`
+	rm -f calculated/pakset/buildings/factories/goods/goods.dat
 	declare -A GoodArray
 	IFS='
 	'
 	for Line in $GoodsFile; do
-  	PosMin=`expr index "$Line" '-'`
-		if [ $PosMin -eq 1 ]
+		if [[ $Line == -* ]]
 		then
 			savegoodtoram
 			unset GoodArray
 			declare -A GoodArray
-		else 
-			readgoodline $Line
+		else
+			readgoodline "$Line"
 		fi
 	done
 	savegoodtoram
@@ -100,14 +105,15 @@ readgoodline() {
 	#reads a line and adds it to the ObjectArray
 	local Line="$1"
 	shift
-	local PosHash=`expr index "$Line" '#'`
-	local PosEq=`expr index "$Line" '='`
+	local PosHash PosEq
+	PosHash=$(strindex "$Line" "#")
+	PosEq=$(strindex "$Line" "=")
 
-	if [ $PosHash -gt 0 ]
+	if [ "$PosHash" -gt 0 ]
 	then
 		Line=${Line:1:${#Line}}
-		PosEq=$(($PosEq - 1))
-		if [ $PosEq -gt 0 ] && [ `expr index "$Line" '#'` == 0 ]
+		PosEq=$((PosEq - 1))
+		if [ $PosEq -gt 0 ] && [[ $Line != \#* ]]
 		then
 			Name=${Line:0:$((PosEq - 1))}
 			Name="$(trim $Name)"
@@ -116,15 +122,13 @@ readgoodline() {
 			GoodArray[$Name]=$Value
 		fi
 		Line=${Line:0:$((PosHash - 1))}
-	else
-		if [ $PosEq -gt 0 -a ${#Line} -gt 0 ]
-		then
-			Name=${Line:0:$((PosEq - 1))}
-			Name="$(trim $Name)"
-			Value=${Line:PosEq}
-			Value="$(trim $Value)"
-			GoodArray[$Name]=$Value
-		fi
+	elif [ "$PosEq" -gt 0 ] && [ ${#Line} -gt 0 ]
+	then
+		Name=${Line:0:$((PosEq - 1))}
+		Name="$(trim $Name)"
+		Value=${Line:PosEq}
+		Value="$(trim $Value)"
+		GoodArray[$Name]=$Value
 	fi
 }
 
@@ -173,7 +177,8 @@ getspeedbonus() {
 	local Speedbonus=0
 
 	for Line in $SpeedBonusFile; do
- 		local PosHash=`expr index "$Line" '#'`
+		local PosHash
+		PosHash=$(strindex "$Line" "#")
 		if [ $PosHash -gt 0 ]
 		then
 			Line=${Line:0:$((PosHash - 1))}
@@ -285,25 +290,24 @@ readfile() {
 	#creates a new ObjectArray
 	#runs readline for each line in the file
 	local Filename=$1
-	local File=`cat $Filename | tr -d '\r'`
+	local File=$(cat "$Filename" | tr -d '\r')
 
-	`rm -f calculated/$Filename`
+	rm -f calculated/"$Filename"
 	declare -A ObjectArray
 	local IFS='
 '
 	for Line in $File; do
-  	PosMin=`expr index "$Line" '-'`
-		if [ $PosMin -eq 1 ]
+		if [[ $Line == -* ]]
 		then
-			writeobject $Filename
+			writeobject "$Filename"
 			unset ObjectArray
 			declare -A ObjectArray
 		else 
-			readline $Line
+			readline "$Line"
 		fi
 	done
-	if [[ ! -z ${ObjectArray[obj]} ]] ;then
-		writeobject $Filename
+	if [[ -n ${ObjectArray[obj]} ]] ;then
+		writeobject "$Filename"
 	fi
 	unset ObjectArray
 }
@@ -312,16 +316,17 @@ readfile() {
 readline() {
 	#reads a line and adds it to the ObjectArray
 	local Line="$1"
-	if [[ ! -z $Line ]];then
+	if [[ -n $Line ]];then
 		shift
-		local PosHash=`expr index "$Line" '#'`
-		local PosEq=`expr index "$Line" '='`
+		local PosHash PosEq
+		PosHash=$(strindex "$Line" "#")
+		PosEq=$(strindex "$Line" "=")
 
-		if [ $PosHash -gt 0 ]
+		if [ "$PosHash" -gt 0 ]
 		then
 			Line=${Line:0:$((PosHash - 1))}
 		fi
-		if [ $PosEq -gt 0 -a ${#Line} -gt 0 ]
+		if [ "$PosEq" -gt 0 ] && [ ${#Line} -gt 0 ]
 		then
 			Name=${Line:0:$((PosEq - 1))}
 			Name="$(trim $Name)"
@@ -338,12 +343,12 @@ calculatepayload(){
 	local length=8
 	local width=3200
 
-	if [[ ! -z ${ObjectArray[freight]} ]] ;then
+	if [[ -n ${ObjectArray[freight]} ]] ;then
 	if [[ ${ObjectArray[freight]} -eq "Passagiere" || ${ObjectArray[freight]} -eq "passagiere" ]] ;then
 
 
 
-		if [[ ! -z ${ObjectArray[payload]} ]] ;then
+		if [[ -n ${ObjectArray[payload]} ]] ;then
 		#only write in the payload if it is given at all
 			ObjectArray[payload[0]]=0
 			ObjectArray[payload[1]]=0
@@ -352,10 +357,10 @@ calculatepayload(){
 
 		
 		for i in {0..4} ;do
-			if [[ ! -z ${ObjectArray[payload[$i]]} ]] ;then
+			if [[ -n ${ObjectArray[payload[$i]]} ]] ;then
 				echo "payload[$i]=${ObjectArray[payload[$i]]}" >> calculated/$dat
 
-				if [[ ! -z ${ObjectArray[comfort[$i]]} ]] ;then
+				if [[ -n ${ObjectArray[comfort[$i]]} ]] ;then
 					echo "comfort[$i]=${ObjectArray[comfort[$i]]}" >> calculated/$dat
 				else
 					if [[ 0 -eq ${ObjectArray[payload[$i]]} ]] ;then
@@ -371,14 +376,14 @@ calculatepayload(){
 
 
 		
-		if [[ ! -z ${ObjectArray[catering_level]} ]] ;then
+		if [[ -n ${ObjectArray[catering_level]} ]] ;then
 			echo "catering_level=${ObjectArray[catering_level]}" >> calculated/$dat
 		fi
 
 
-			if [[ ! -z ${ObjectArray[payload[0]]} ]] ;then
+			if [[ -n ${ObjectArray[payload[0]]} ]] ;then
 
-				if [[ ! -z ${ObjectArray[length]} ]] ;then
+				if [[ -n ${ObjectArray[length]} ]] ;then
 					length=${ObjectArray[length]}
 				else
 					length=0
@@ -402,26 +407,26 @@ calculatepayload(){
 		#	echo "SpraceTaken = $SpaceTaken"
 			FreeSpace=$(( FreeSpace -  SpaceTaken))
 		done
-		if [[ ! -z ${ObjectArray[power]} ]] ;then
+		if [[ -n ${ObjectArray[power]} ]] ;then
 			local PowerI=${ObjectArray[power]}
 			PowerI=$(( PowerI * 4 ))
 		#	echo "PowerI= $PowerI"
 			FreeSpace=$(( FreeSpace - PowerI ))
 		fi
 
-		if [[ ! -z ${ObjectArray[has_front_cab]} ]] ;then
+		if [[ -n ${ObjectArray[has_front_cab]} ]] ;then
 			if [[ ${ObjectArray[has_front_cab]} -eq 1 ]] ;then
 				FreeSpace=$(( FreeSpace - 2500 ))
 		#		echo "Frontcap = 2500"
 			fi
 		fi
-		if [[ ! -z ${ObjectArray[has_rear_cab]} ]] ;then
+		if [[ -n ${ObjectArray[has_rear_cab]} ]] ;then
 			if [[ ${ObjectArray[has_rear_cab]} -eq 1 ]] ;then
 				FreeSpace=$(( FreeSpace - 2500 ))
 		#		echo "Rearcap = 2500"
 			fi
 		fi
-		if [[ ! -z ${ObjectArray[catering_level]} ]] ;then
+		if [[ -n ${ObjectArray[catering_level]} ]] ;then
 			FreeSpace=$(( FreeSpace - (${ObjectArray[catering_level]} * 1000 ) ))
 		#	echo "Catering $((${ObjectArray[catering_level]} * 1000 ))"
 		fi
@@ -468,18 +473,18 @@ calculatecosts(){
 	local payingcapa=$(( capaOC * 25 ))
 		
 	for i in {0..4} ;do
-		if [[ ! -z ${ObjectArray[payload[$i]]} ]] ;then
+		if [[ -n ${ObjectArray[payload[$i]]} ]] ;then
 			payingcapa=$(( ObjectArray[payload[$i]] * PriceForClasses[$i] + payingcapa ))
 		fi
 	done
 	payingcapa=$(( payingcapa / 100 ))
 
-	if [[ ! -z ${ObjectArray[catering_level]} ]] ;then
+	if [[ -n ${ObjectArray[catering_level]} ]] ;then
 		payingcapa=$(( payingcapa + catering_level * 15 ))
 	fi
 	local payingspeed=${ObjectArray[speed]}
 
-	if [[ ! -z ${ObjectArray[is_tilting]} ]] ;then
+	if [[ -n ${ObjectArray[is_tilting]} ]] ;then
 		payingspeed=$(( payingspeed + ObjectArray[is_tilting] * 5 ))
 	fi
 
@@ -491,9 +496,9 @@ calculatecosts(){
 
 	#get the value of the power installed, this is essentially the income of 
 	local PowerValue=0
-	if [[ ! -z ${ObjectArray[power]} ]] ;then
+	if [[ -n ${ObjectArray[power]} ]] ;then
 		local EffectivePower=${ObjectArray[power]}
-		if [[ ! -z ${ObjectArray[gear]} ]] ;then
+		if [[ -n ${ObjectArray[gear]} ]] ;then
 			local Gear=${ObjectArray[gear]}
 			EffectivePower=$(( EffectivePower * Gear ))
 		else
@@ -501,7 +506,7 @@ calculatecosts(){
 		fi
 		PowerValue="$(getincome "None" $EffectivePower ${ObjectArray[waytype]} ${ObjectArray[intro_year]} $payingspeed)"
 		
-		if [[ ! -z ${ObjectArray[engine_type]} ]] ;then
+		if [[ -n ${ObjectArray[engine_type]} ]] ;then
 			if [[ ${ObjectArray[engine_type]} == "electric" ]] ;then
 				PowerValue=$(( PowerValue  / 100 * 75 ))
 			fi
@@ -558,29 +563,29 @@ calculatecosts(){
 		#	echo "loading_time=$LoadingTime" >> calculated/$dat			
 		#fi
 		
-		if [[ ! -z ${ObjectArray[min_loading_time]} ]] ;then
+		if [[ -n ${ObjectArray[min_loading_time]} ]] ;then
 			echo "min_loading_time=${ObjectArray[min_loading_time]}" >> calculated/$dat
 		else
 			echo "min_loading_time=$MinLoadingTime" >> calculated/$dat				
 		fi
-		if [[ ! -z ${ObjectArray[max_loading_time]} ]] ;then
+		if [[ -n ${ObjectArray[max_loading_time]} ]] ;then
 			echo "max_loading_time=${ObjectArray[max_loading_time]}" >> calculated/$dat
 		else
 			echo "max_loading_time=$LoadingTime" >> calculated/$dat			
 		fi
 		
 		
-		if [[ ! -z ${ObjectArray[runningcost]} ]] ;then
+		if [[ -n ${ObjectArray[runningcost]} ]] ;then
 			echo "runningcost=${ObjectArray[runningcost]}" >> calculated/$dat
 		else
 			echo "runningcost=$RunningCost" >> calculated/$dat			
 		fi
-		if [[ ! -z ${ObjectArray[cost]} ]] ;then
+		if [[ -n ${ObjectArray[cost]} ]] ;then
 			echo "cost=${ObjectArray[cost]}" >> calculated/$dat
 		else
 			echo "cost=$Cost" >> calculated/$dat
 		fi
-		if [[ ! -z ${ObjectArray[fixed_cost]} ]] ;then
+		if [[ -n ${ObjectArray[fixed_cost]} ]] ;then
 			echo "fixed_cost=$FixCost" >> calculated/$dat
 			#echo "fixed_cost=${ObjectArray[fixed_cost]}" >> calculated/$dat
 		else
