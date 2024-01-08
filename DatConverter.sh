@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -e
 # Structure of the file:
 # - parameters for balancing
 #   - buildings
@@ -1093,12 +1093,13 @@ Commands:
 			else	
 				#echo "- Edit Costoum .dat Files "
 
-				readfile "pakset/buildings/city/ind_1tropic_1x2.dat"
+				#readfile "pakset/vehicles/road/W50_Sattelzug.dat"
+				readfile "pakset/vehicles/narrowgauge/Car_Police_1900.dat"
 				#readfile "pakset/vehicles/track/Tram_DUEWAG_Grossraumwagen.dat"
 				#readfile "pakset/vehicles/narrowgauge/Car_1885_Piece_goods.dat"
 
 				#readallfiles 'calculated/AddOn/britain/infrastruktur/*.dat'
-				readallfiles 'AddOn/belgian/**/*.dat'
+				#readallfiles 'AddOn/belgian/**/*.dat'
 				#readallfiles 'calculated/AddOn/britain/vehicles/**/*.dat'
 				#readallfiles 'calculated/AddOn/czech/vehicles/**/*.dat'
 				#readallfiles 'calculated/AddOn/german/vehicles/**/*.dat'
