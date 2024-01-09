@@ -302,7 +302,7 @@ calculatepayload() {
 	local width=3200
 
 	if [[ -n ${ObjectArray[freight]} ]]; then
-		if [[ ${ObjectArray[freight]} -eq "Passagiere" || ${ObjectArray[freight]} -eq "passagiere" ]]; then
+		if [[ ${ObjectArray[freight]} = "Passagiere" || ${ObjectArray[freight]} = "passagiere" ]]; then
 
 			if [[ -n ${ObjectArray[payload]} ]]; then
 				#only write in the payload if it is given at all
