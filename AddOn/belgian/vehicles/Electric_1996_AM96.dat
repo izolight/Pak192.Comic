@@ -128,7 +128,7 @@ engine_type=electric
 constraint[prev][0]=Track_Electric_1996_AM96_U1
 constraint[next][0]=Track_Electric_1996_AM96_U2
 
-EmptyImage[E,S,W,N,SE,NE,NW,SW]=./image/Electric_1996_AM96_Urban.0.<$0>
+EmptyImage[E,S,W,N,SE,NE,NW,SW]=./image/Electric_1996_AM96U.0.<$0>
 -------------
 obj=vehicle
 name=Track_Electric_1996_AM96_U1
@@ -156,7 +156,7 @@ constraint[prev][1]=Track_Electric_1996_AM96_U2
 constraint[prev][2]=none
 constraint[next][0]=Track_Electric_1996_AM96_U0
 
-EmptyImage[E,S,W,N,SE,NE,NW,SW]=./image/Electric_1996_AM96_Urban.1.<$0>
+EmptyImage[E,S,W,N,SE,NE,NW,SW]=./image/Electric_1996_AM96U.1.<$0>
 -------------
 obj=vehicle
 name=Track_Electric_1996_AM96_U2
@@ -182,5 +182,5 @@ constraint[next][0]=Track_Electric_1996_AM96_1
 constraint[next][1]=Track_Electric_1996_AM96_U1
 constraint[next][2]=none
 
-EmptyImage[E,S,W,N,SE,NE,NW,SW]=./image/Electric_1996_AM96_Urban.2.<$0>
+EmptyImage[E,S,W,N,SE,NE,NW,SW]=./image/Electric_1996_AM96U.2.<$0>
 -------------
