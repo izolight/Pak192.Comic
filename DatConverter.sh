@@ -407,6 +407,10 @@ calculatepayload() {
 
 			fi
 			echo "overcrowded_capacity=${ObjectArray[overcrowded_capacity]}" >>calculated/$dat
+		else
+			if [[ -n ${ObjectArray[payload]} ]]; then
+				echo "payload=${ObjectArray[payload]}" >>calculated/$dat
+			fi
 		fi
 	fi
 
@@ -416,29 +420,31 @@ calculatecosts() {
 	local dat=$1
 	#get the income of the vehicle by 1000 times
 
-	local capaOC=${ObjectArray[overcrowded_capacity]}
-
-	local payingcapa=$((capaOC * 25))
-
-	for i in {0..4}; do
-		if [[ -n ${ObjectArray[payload[$i]]} ]]; then
-			payingcapa=$((ObjectArray[payload[$i]] * PriceForClasses[$i] + payingcapa))
-		fi
-	done
-	payingcapa=$((payingcapa / 100))
-
-	if [[ -n ${ObjectArray[catering_level]} ]]; then
-		payingcapa=$((payingcapa + catering_level * 15))
-	fi
+	local Income
 	local payingspeed=${ObjectArray[speed]}
+	if [[ ${ObjectArray[freight]} = "Passagiere" || ${ObjectArray[freight]} = "passagiere" ]]; then
+		local capaOC=${ObjectArray[overcrowded_capacity]}
 
-	if [[ -n ${ObjectArray[is_tilting]} ]]; then
-		payingspeed=$((payingspeed + ObjectArray[is_tilting] * 5))
+		local payingcapa=$((capaOC * 25))
+
+		for i in {0..4}; do
+			if [[ -n ${ObjectArray[payload[$i]]} ]]; then
+				payingcapa=$((ObjectArray[payload[$i]] * PriceForClasses[$i] + payingcapa))
+			fi
+		done
+		payingcapa=$((payingcapa / 100))
+
+		if [[ -n ${ObjectArray[catering_level]} ]]; then
+			payingcapa=$((payingcapa + catering_level * 15))
+		fi
+
+		if [[ -n ${ObjectArray[is_tilting]} ]]; then
+			payingspeed=$((payingspeed + ObjectArray[is_tilting] * 5))
+		fi
+		Income="$(getincome ${ObjectArray[freight]} $payingcapa ${ObjectArray[waytype]} ${ObjectArray[intro_year]} $payingspeed)"
+	else
+		Income="$(getincome ${ObjectArray[freight]} ${ObjectArray[payload]} ${ObjectArray[waytype]} ${ObjectArray[intro_year]} $payingspeed)"
 	fi
-
-	#echo "test"
-	#echo $payingcapa
-	local Income="$(getincome ${ObjectArray[freight]} $payingcapa ${ObjectArray[waytype]} ${ObjectArray[intro_year]} $payingspeed)"
 
 	#get the value of the power installed, this is essentially the income of
 	local PowerValue=0
