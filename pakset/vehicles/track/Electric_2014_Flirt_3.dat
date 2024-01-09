@@ -24,7 +24,7 @@ has_rear_cab=0
 bidirectional=1
 
 liverytype[0]=NahSH
-EmptyImage[W,N,E,S,SE,NE,NW,SW]=image/Electric_2014_Flirt3.0.<$0>
+EmptyImage[W,N,E,S,SE,NE,NW,SW][0]=image/Electric_2014_Flirt3.0.<$0>
 -----------
 obj=vehicle
 name=Flirt_3_Triebwagen_1
@@ -54,7 +54,7 @@ has_rear_cab=0
 bidirectional=1
 
 liverytype[0]=NahSH
-EmptyImage[W,N,E,S,SE,NE,NW,SW]=image/Electric_2014_Flirt3.2.<$0>
+EmptyImage[W,N,E,S,SE,NE,NW,SW][0]=image/Electric_2014_Flirt3.2.<$0>
 -----------
 obj=vehicle
 name=Flirt_3_Triebwagen_2
@@ -85,4 +85,4 @@ has_rear_cab=1
 bidirectional=1
 
 liverytype[0]=NahSH
-EmptyImage[W,N,E,S,SE,NE,NW,SW]=image/Electric_2014_Flirt3.3.<$0>
+EmptyImage[W,N,E,S,SE,NE,NW,SW][0]=image/Electric_2014_Flirt3.3.<$0>

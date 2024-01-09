@@ -43,7 +43,7 @@ compile() {
 
         if [ -f "$dat" ] ; then
             echo -e "Compiling $dat"
-            ./makeobj-extended pak$1 ./compiled_serverset/ "./$dat" &> /dev/null
+            ./makeobj-extended pak$1 ./compiled_serverset/ "./$dat" >> compile.log
                 if [[ $? != 0 ]]; then
                     echo "Error: Makeobj returned an error for $dat. Aborting..."
                 fi
