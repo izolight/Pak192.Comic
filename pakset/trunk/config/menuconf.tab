@@ -84,6 +84,9 @@ icon_height = 32
 #TOOL_EXEC_SCRIPT =        42
 #TOOL_EXEC_TWO_CLICK_SCRIPT = 43
 #TOOL_PLANT_GROUNDOBJ =    44
+# Simutrans-Extended specific tools start at 128
+# TOOL_BUILD_SIGNALBOX=128
+# TOOL_REASSIGN_SIGNAL=129
 #
 general_tool[0]=0,0,9,a
 general_tool[1]=1,1,14,r
@@ -125,6 +128,9 @@ general_tool[32]=15,13,,
 general_tool[35]=6,7,,
 general_tool[40]=,,7,,
 general_tool[44]=,,7,,
+general_tool[129]=18,,,\
+general_tool[132]=20,1,,
+general_tool[133]=19,,,
 
 # SECOND SECTION: simple tools
 # since these tools act immeadiately
@@ -172,6 +178,14 @@ general_tool[44]=,,7,,
 # TOOL_HIDE_UNDER_CURSOR =  35
 # TOOL_MOVE_MAP =           36
 # TOOL_ROLLUP_ALL_WIN =     37
+# Simutrans-Extended specific tools start at 128
+# TOOL_CHANGE_ROADSIGN=128 (internal use)
+# TOOL_SHOW_RIBI=129
+# TOOL_RECOLOUR_TOOL=130 (internal use)
+# TOOL_ACCESS_TOOL=131 (internal use)
+# TOOL_SHOW_SIGNALBOX_COVERAGE=132
+# TOOL_CONVOY_NAMEPLATES=133
+# TOOL_CONVOY_LOADINGBAR=134
 #
 simple_tool[0]=0,p
 simple_tool[1]=1,W
@@ -196,8 +210,10 @@ simple_tool[16]=14,R
 simple_tool[20]=,'
 simple_tool[33]=,B
 simple_tool[34]=,E
-simple_tool[129]=,^s
-simple_tool[133]=,l
+simple_tool[129]=,:
+simple_tool[132]=,$
+simple_tool[133]=,I
+#simple_tool[134]=,
 
 # THIRD SECTION: dialoge tools
 # since these tools immeadiately open only a dialoge,
@@ -243,6 +259,7 @@ simple_tool[133]=,l
 # DIALOG_LIST_VEHICLE =     33
 # DIALOG_SCRIPT_TOOL =      34
 # DIALOG_EDIT_GROUNDOBJ =   35
+# DIALOG_LIST_SIGNALBOX=128
 #
 dialog_tool[0]=0,?
 dialog_tool[1]=1,Q
@@ -280,6 +297,7 @@ dialog_tool[32]=32
 dialog_tool[33]=33 
 dialog_tool[34]=34 
 dialog_tool[35]=35
+dialog_tool[128]=36,^S
 
 # FINAL SECTION: compose all tool bars
 # now the defintion of all tool bars
@@ -325,6 +343,9 @@ dialog_tool[35]=35
 # depot = 33
 # generic_stop = 34
 # generic_extension = 35
+# flat_dock		= 36
+# EXTENDED SPECIFIC
+# signalbox		= 70
 #
 #
 # IMPORTANT: toolbar[3] must not be mentioned before toolbar[2]!
@@ -505,6 +526,7 @@ toolbar[5][23]=buildings(33,8)
 toolbar[5][24]=general_tool[33],126,,8
 toolbar[5][25]=general_tool[17],90,,8
 toolbar[5][26]=-b,91
+toolbar[5][27]=buildings(70,0)
 
 # narrowgauge (waytype 2)
 toolbar[6][0]=-,92
@@ -533,6 +555,7 @@ toolbar[6][20]=buildings(33,2)
 toolbar[6][21]=general_tool[33],127,,2
 toolbar[6][22]=general_tool[17],94,,2
 toolbar[6][23]=-b,95
+toolbar[6][24]=buildings(70,0)
 
 # shiptools (waytype 3)
 toolbar[7][0]=-,96

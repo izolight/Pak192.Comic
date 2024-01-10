@@ -1,3 +1,4 @@
+# semaphore stop
 obj=roadsign
 name=track_signal_form
 copyright=PappeTeeMaster
@@ -7,11 +8,22 @@ intro_year=1835
 retire_year=1980
 retire_month=1
 cost=750
-
-working_method=absolute_block
 is_signal=1
+
+#----- EXT Stuff
+working_method=absolute_block
 aspects=2
 normal_danger=1
+signal_upgrade_cost=375
+maintenance=125
+has_selective_choose=0
+has_call_on=0
+max_distance_to_signalbox=1750
+permissive=0
+signal_groups=2
+allow_underground=0
+upgrade_group=8
+#-----
 
 icon=> ./images/signals/signal.1.8
 cursor=./images/signals/signal.1.9
@@ -288,7 +300,7 @@ end_of_choose=1
 icon=> ./images/signals/sigchooseend.1.6
 cursor=./images/signals/sigchooseend.0.6
 Image[0-3]=./images/signals/sigchooseend.1.<$0>
-Image[8-11]=./images/signals/sigchooseend.0.<$0-8>
+Image[4-7]=./images/signals/sigchooseend.0.<$0-4>
 -----------------------
 #######################
 obj=roadsign
