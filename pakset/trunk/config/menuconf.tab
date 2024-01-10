@@ -523,7 +523,6 @@ toolbar[5][23]=buildings(33,8)
 toolbar[5][24]=general_tool[33],126,,8
 toolbar[5][25]=general_tool[17],90,,8
 toolbar[5][26]=-b,91
-toolbar[5][27]=buildings(70,0)
 
 # narrowgauge (waytype 2)
 toolbar[6][0]=-,92
@@ -552,7 +551,6 @@ toolbar[6][20]=buildings(33,2)
 toolbar[6][21]=general_tool[33],127,,2
 toolbar[6][22]=general_tool[17],94,,2
 toolbar[6][23]=-b,95
-toolbar[6][24]=buildings(70,0)
 
 # shiptools (waytype 3)
 toolbar[7][0]=-,96
@@ -632,7 +630,8 @@ toolbar[11][7]=buildings(35,6)
 toolbar[11][8]=buildings(35,7)
 toolbar[11][9]=buildings(35,8)
 toolbar[11][10]=buildings(35,16)
-toolbar[11][11]=-b,115
+toolbar[11][11]=buildings(70,0)
+toolbar[11][12]=-b,115
 
 # special tools
 toolbar[12][0]=-,116
