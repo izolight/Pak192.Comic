@@ -390,13 +390,10 @@ toolbar[0][33]=dialog_tool[0]
 toolbar[0][34]=toolbar[15],29,,EDITTOOLS,edittools.txt
 toolbar[0][35]=dialog_tool[27]
 toolbar[0][36]=-,34
-
-# invisible tools
-toolbar[0][37]=simple_tool[7],,.,+1
-toolbar[0][38]=simple_tool[7],,#44,-1
-toolbar[0][39]=simple_tool[19],,+,+
-toolbar[0][40]=simple_tool[19],,-,-
-toolbar[0][41]=simple_tool[7],,COMMA,-1
+toolbar[0][37]=simple_tool[7],49,.,+1
+toolbar[0][38]=simple_tool[7],49,COMMA,-1
+toolbar[0][39]=simple_tool[19],49,+,+
+toolbar[0][40]=simple_tool[19],49,-,-
 
 # view tools
 toolbar[1][0]=general_tool[0],35
@@ -419,10 +416,10 @@ toolbar[1][16]=x
 toolbar[1][17]=x
 toolbar[1][18]=x
 toolbar[1][19]=x
-toolbar[1][20]=general_tool[7],45
-toolbar[1][21]=simple_tool[13],46
-toolbar[1][22]=simple_tool[14],47
-toolbar[1][23]=-b,48
+toolbar[1][20]=general_tool[7],44
+toolbar[1][21]=simple_tool[13],45
+toolbar[1][22]=simple_tool[14],46
+toolbar[1][23]=-b,47
 
 # slope tools
 toolbar[2][0]=toolbar[16],50,,SLOPETOOLSEXTRA,slopetoolsextra.txt
@@ -795,7 +792,7 @@ toolbar[16][63]=general_tool[4],275,,75
 toolbar[16][64]=general_tool[4],278,,78
 #toolbar[16][79]=general_tool[4],279,,79
 #toolbar[16][80]=general_tool[4],280,,80
-toolbar[16][65]=-b,48
+toolbar[16][65]=-b,47
 
 
 #additional tracks track
