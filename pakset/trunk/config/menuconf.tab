@@ -87,6 +87,10 @@ icon_height = 32
 # Simutrans-Extended specific tools start at 128
 # TOOL_BUILD_SIGNALBOX=128
 # TOOL_REASSIGN_SIGNAL=129
+# TOOL_BUILD_PIER=130
+# TOOL_BUILD_PIER_AUTO=131
+# TOOL_PATH_REMOVER=132
+# TOOL_FLATTEN_PATH=133
 #
 general_tool[0]=0,0,9,a
 general_tool[1]=1,1,14,r
@@ -125,6 +129,8 @@ general_tool[29]=16,15,,
 general_tool[30]=13,9,,
 general_tool[31]=14,11,, 
 general_tool[32]=15,13,, 
+# tool 33 needs parameter
+# tool 34 seems to be duplicate of 15
 general_tool[35]=6,7,,
 general_tool[40]=,,7,,
 general_tool[44]=,,7,,
@@ -186,6 +192,8 @@ general_tool[133]=19,,,
 # TOOL_SHOW_SIGNALBOX_COVERAGE=132
 # TOOL_CONVOY_NAMEPLATES=133
 # TOOL_CONVOY_LOADINGBAR=134
+# TOOL_SHOW_FACTORY_STORAGE=135
+# TOOL_REASSIGN_SIGNAL_INTERNAL=136
 #
 simple_tool[0]=0,p
 simple_tool[1]=1,W
@@ -694,7 +702,7 @@ toolbar[14][9]=-b,137
 toolbar[15][0]=general_tool[9],140
 toolbar[15][1]=general_tool[10],141,,+100
 toolbar[15][2]=general_tool[10],142,,-100
-toolbar[15][3]=general_tool[14],143,,city_road
+toolbar[15][3]=general_tool[36],143
 toolbar[15][4]=general_tool[29],144
 toolbar[15][5]=simple_tool[3],145
 toolbar[15][6]=general_tool[26],146
