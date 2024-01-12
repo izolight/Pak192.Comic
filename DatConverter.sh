@@ -420,6 +420,14 @@ calculatecosts() {
 	local dat=$1
 	#get the income of the vehicle by 1000 times
 
+	local year=${ObjectArray[intro_year]}
+	if [[ -n ${ObjectArray[build_year]} &&  -n ${ObjectArray[latest_reconstruction]} ]] ;then
+		year=$(( ObjectArray[build_year] + ObjectArray[latest_reconstruction] ))
+		year=$((year / 2))
+	elif [[ -n ${ObjectArray[build_year]} ]] ;then
+		year=${ObjectArray[build_year]}
+	fi
+
 	local Income
 	local payingspeed=${ObjectArray[speed]}
 	if [[ ${ObjectArray[freight]} = "Passagiere" || ${ObjectArray[freight]} = "passagiere" ]]; then
@@ -441,9 +449,9 @@ calculatecosts() {
 		if [[ -n ${ObjectArray[is_tilting]} ]]; then
 			payingspeed=$((payingspeed + ObjectArray[is_tilting] * 5))
 		fi
-		Income="$(getincome ${ObjectArray[freight]} $payingcapa ${ObjectArray[waytype]} ${ObjectArray[intro_year]} $payingspeed)"
+		Income="$(getincome ${ObjectArray[freight]} $payingcapa ${ObjectArray[waytype]} $year $payingspeed)"
 	else
-		Income="$(getincome ${ObjectArray[freight]} ${ObjectArray[payload]} ${ObjectArray[waytype]} ${ObjectArray[intro_year]} $payingspeed)"
+		Income="$(getincome ${ObjectArray[freight]} ${ObjectArray[payload]} ${ObjectArray[waytype]} $year $payingspeed)"
 	fi
 
 	#get the value of the power installed, this is essentially the income of
@@ -456,7 +464,7 @@ calculatecosts() {
 		else
 			EffectivePower=$((EffectivePower * 100))
 		fi
-		PowerValue="$(getincome "None" $EffectivePower ${ObjectArray[waytype]} ${ObjectArray[intro_year]} $payingspeed)"
+		PowerValue="$(getincome "None" $EffectivePower ${ObjectArray[waytype]} $year $payingspeed)"
 
 		if [[ -n ${ObjectArray[engine_type]} ]]; then
 			if [[ ${ObjectArray[engine_type]} == "electric" ]]; then
