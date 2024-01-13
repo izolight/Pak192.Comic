@@ -2268,6 +2268,24 @@ signal_way_end_ng
 End of Choose Way
 signal_way_ng
 Choose Signal
+track_signal_box
+Signal Box
+track_signal_form
+Signal
+track_signal_light
+Signal
+track_presignal_form
+Pre-Signal
+track_presignal_light
+Pre-Signal
+track_sigchoose_form
+Platform choose signal
+track_sigchoose_light
+Platform choose signal
+track_siglong_form
+Longblock Signal
+track_siglong_light
+Longblock-Signal
 #_____________________________________tree______________________________________
 #_____________________________________tree______________________________________
 192tree01
