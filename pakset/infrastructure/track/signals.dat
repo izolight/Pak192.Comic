@@ -264,7 +264,7 @@ has_selective_choose=0
 has_call_on=0
 max_distance_to_signalbox=0
 permissive=0
-signal_groups=2
+signal_groups=3
 allow_underground=0
 upgrade_group=0
 #-----
@@ -293,7 +293,7 @@ has_selective_choose=0
 has_call_on=0
 max_distance_to_signalbox=1750
 permissive=0
-signal_groups=2
+signal_groups=3
 allow_underground=0
 upgrade_group=0
 #-----
