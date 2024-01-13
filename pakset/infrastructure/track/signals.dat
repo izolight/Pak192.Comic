@@ -227,25 +227,37 @@ icon=> ./images/signals/sigchoose.1.8
 cursor=./images/signals/sigchoose.1.9
 Image[0-7]=./images/signals/sigchoose.1.<$0>
 -----------------------
-#######################
-# obj=roadsign
-# name=track_siglong_form
-# copyright=PappeTeeMaster & Flemmbrav
-# waytype=narrowgauge_track
-# intro_month=1
-# intro_year=1835
-# retire_year=1980
-# retire_month=1
-# cost=750
+######################
+obj=roadsign
+name=track_siglong_form
+copyright=PappeTeeMaster & Flemmbrav
+waytype=narrowgauge_track
+intro_month=1
+intro_year=1835
+retire_year=1980
+retire_month=1
+cost=750
+is_signal=1
 
-# working_method=token_block
-# is_signal=1
-# aspects=2
+#----- EXT Stuff
+working_method=token_block
+aspects=2
+normal_danger=1
+signal_upgrade_cost=375
+maintenance=125
+has_selective_choose=0
+has_call_on=0
+max_distance_to_signalbox=1750
+permissive=0
+signal_groups=3
+allow_underground=0
+upgrade_group=0
+#-----
 
-# icon=> ./images/signals/siglong.1.8
-# cursor=./images/signals/siglong.1.9
-# Image[0-7]=./images/signals/siglong.1.<$0>
-# -----------------------
+icon=> ./images/signals/siglong.1.8
+cursor=./images/signals/siglong.1.9
+Image[0-7]=./images/signals/siglong.1.<$0>
+-----------------------
 obj=roadsign
 name=track_siglong_light
 copyright=PappeTeeMaster
@@ -280,8 +292,6 @@ waytype=narrowgauge_track
 cost=750
 intro_month=1
 intro_year=1835
-retire_year=1980
-retire_month=1
 is_signal=1
 #----- EXT Stuff
 working_method=token_block
@@ -303,34 +313,34 @@ cursor=./images/signals/siglong.0.10
 Image[0-7]=./images/signals/siglong.1.<$0>
 Image[8-15]=./images/signals/siglong.0.<$0-8>
 -----------------------
-# #######################
-# obj=roadsign
-# name=track_sigchooseend_light
-# copyright=PappeTeeMaster & Flemmbrav
-# waytype=narrowgauge_track
-# max_speed=999
-# intro_year=1980
-# intro_month=1
-# cost=750
-# end_of_choose=1
-# icon=> ./images/signals/sigchooseend.0.4
-# cursor=./images/signals/sigchooseend.0.5
-# Image[0-3]=./images/signals/sigchooseend.0.<$0>
-# -----------------------
-# obj=roadsign
-# name=track_sigchooseend_form
-# copyright=PappeTeeMaster & Flemmbrav
-# waytype=narrowgauge_track
-# intro_month=1
-# intro_year=1835
-# retire_year=1980
-# retire_month=1
-# cost=750
-# end_of_choose=1
-# icon=> ./images/signals/sigchooseend.1.4
-# cursor=./images/signals/sigchooseend.1.5
-# Image[0-3]=./images/signals/sigchooseend.1.<$0>
-# -----------------------
+#######################
+obj=roadsign
+name=track_sigchooseend_light
+copyright=PappeTeeMaster & Flemmbrav
+waytype=narrowgauge_track
+max_speed=999
+intro_year=1980
+intro_month=1
+cost=750
+end_of_choose=1
+icon=> ./images/signals/sigchooseend.0.4
+cursor=./images/signals/sigchooseend.0.5
+Image[0-3]=./images/signals/sigchooseend.0.<$0>
+-----------------------
+obj=roadsign
+name=track_sigchooseend_form
+copyright=PappeTeeMaster & Flemmbrav
+waytype=narrowgauge_track
+intro_month=1
+intro_year=1835
+retire_year=1980
+retire_month=1
+cost=750
+end_of_choose=1
+icon=> ./images/signals/sigchooseend.1.4
+cursor=./images/signals/sigchooseend.1.5
+Image[0-3]=./images/signals/sigchooseend.1.<$0>
+-----------------------
 obj=roadsign
 name=track_sigchooseend
 copyright=PappeTeeMaster & Flemmbrav
